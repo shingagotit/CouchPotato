@@ -111,6 +111,9 @@ Or simply reply "approve" or "deny" to this message.`;
   // Login user
   async login(email: string, password: string): Promise<User | null> {
     try {
+      // Ensure admin user exists for GitHub Pages deployment
+      this.ensureAdminUserExists();
+      
       const users = this.getStoredUsers();
       const user = users.find(u => u.email === email.toLowerCase().trim());
 
@@ -183,6 +186,43 @@ Or simply reply "approve" or "deny" to this message.`;
       return usersStr ? JSON.parse(usersStr) : [];
     } catch {
       return [];
+    }
+  },
+
+  // Ensure admin user exists (for GitHub Pages deployment)
+  ensureAdminUserExists(): void {
+    try {
+      const users = this.getStoredUsers();
+      
+      // Check if admin user already exists
+      const adminExists = users.some(user => user.email === 'admin@couchpotato.com');
+      
+      if (!adminExists) {
+        console.log('🔧 Creating admin user for GitHub Pages...');
+        
+        const adminUser: User = {
+          id: generateUUID(),
+          name: 'Administrator',
+          email: 'admin@couchpotato.com',
+          status: 'approved',
+          role: 'admin',
+          createdAt: new Date().toISOString(),
+          approvedAt: new Date().toISOString(),
+        };
+        
+        users.push(adminUser);
+        localStorage.setItem('vidking_users', JSON.stringify(users));
+        
+        // Also set admin password
+        const passwordsStr = localStorage.getItem('vidking_passwords');
+        const passwords = passwordsStr ? JSON.parse(passwordsStr) : {};
+        passwords['admin@couchpotato.com'] = 'admin123';
+        localStorage.setItem('vidking_passwords', JSON.stringify(passwords));
+        
+        console.log('✅ Admin user created successfully!');
+      }
+    } catch (error) {
+      console.error('Failed to ensure admin user exists:', error);
     }
   },
 

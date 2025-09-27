@@ -16,7 +16,7 @@ function generateUUID(): string {
 
 export function initializeAdminUser(): void {
   try {
-    const usersData = localStorage.getItem('couchpotato_users');
+    const usersData = localStorage.getItem('vidking_users');
     let users: User[] = [];
     
     if (usersData) {
@@ -27,6 +27,8 @@ export function initializeAdminUser(): void {
     const adminExists = users.some(user => user.email === 'admin@couchpotato.com');
     
     if (!adminExists) {
+      console.log('🔧 Initializing admin user for CouchPotato...');
+      
       const adminUser: User = {
         id: generateUUID(),
         name: 'Administrator',
@@ -38,10 +40,10 @@ export function initializeAdminUser(): void {
       };
       
       users.push(adminUser);
-      localStorage.setItem('couchpotato_users', JSON.stringify(users));
+      localStorage.setItem('vidking_users', JSON.stringify(users));
       
       // Also set admin password
-      const passwordsData = localStorage.getItem('couchpotato_passwords');
+      const passwordsData = localStorage.getItem('vidking_passwords');
       let passwords: Record<string, string> = {};
       
       if (passwordsData) {
@@ -49,9 +51,13 @@ export function initializeAdminUser(): void {
       }
       
       passwords['admin@couchpotato.com'] = 'admin123';
-      localStorage.setItem('couchpotato_passwords', JSON.stringify(passwords));
+      localStorage.setItem('vidking_passwords', JSON.stringify(passwords));
       
       console.log('✅ Admin user initialized for GitHub Pages deployment');
+      console.log('📧 Email: admin@couchpotato.com');
+      console.log('🔑 Password: admin123');
+    } else {
+      console.log('✅ Admin user already exists');
     }
   } catch (error) {
     console.error('Failed to initialize admin user:', error);
