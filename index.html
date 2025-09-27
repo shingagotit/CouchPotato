@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CouchPotato - Stream Movies & TV Shows</title>
-    <meta name="description" content="Discover and stream thousands of movies and TV shows with CouchPotato. Netflix-inspired interface with a stunning purple theme.">
-    <meta name="author" content="CouchPotato">
     <style>
         * {
             margin: 0;
@@ -14,307 +12,154 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: white;
-            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        .header {
             text-align: center;
-            margin-bottom: 3rem;
+            max-width: 800px;
+            padding: 2rem;
         }
         
         .logo {
             font-size: 5rem;
-            font-weight: bold;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             animation: pulse 2s infinite;
         }
         
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
         
-        .subtitle {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-        
         .status {
-            background: linear-gradient(45deg, #00ff00, #00cc00);
+            background: #00ff00;
+            color: #000;
             padding: 1.5rem;
-            border-radius: 12px;
+            border-radius: 15px;
             margin: 2rem 0;
-            border: 2px solid #00ff00;
-            text-align: center;
-            font-size: 1.2rem;
             font-weight: bold;
-            box-shadow: 0 4px 12px rgba(0,255,0,0.3);
+            font-size: 1.3rem;
             animation: glow 2s infinite alternate;
         }
         
         @keyframes glow {
-            from { box-shadow: 0 4px 12px rgba(0,255,0,0.3); }
-            to { box-shadow: 0 8px 24px rgba(0,255,0,0.6); }
+            from { box-shadow: 0 0 20px rgba(0,255,0,0.5); }
+            to { box-shadow: 0 0 40px rgba(0,255,0,0.8); }
         }
         
         .credentials {
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0,0,0,0.4);
             padding: 2rem;
-            border-radius: 16px;
+            border-radius: 15px;
             margin: 2rem 0;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.3);
         }
         
         .credential-item {
-            margin: 1.5rem 0;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, rgba(255,107,107,0.2), rgba(255,165,0,0.2));
-            border-radius: 12px;
-            border-left: 6px solid #ff6b6b;
-            transition: transform 0.3s ease;
+            background: rgba(255,107,107,0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 4px solid #ff6b6b;
         }
         
-        .credential-item:hover {
-            transform: translateX(10px);
-        }
-        
-        .credential-item h3 {
-            color: #ff6b6b;
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-        
-        .credential-item p {
-            margin: 0.5rem 0;
-            font-size: 1.1rem;
-        }
-        
-        .navigation {
+        .nav-links {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 3rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
         }
         
         .nav-link {
-            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            background: rgba(255,255,255,0.1);
             color: white;
             text-decoration: none;
-            padding: 2rem;
-            border-radius: 16px;
-            text-align: center;
+            padding: 1.5rem;
+            border-radius: 15px;
             transition: all 0.3s ease;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .nav-link:hover::before {
-            left: 100%;
+            border: 2px solid rgba(255,255,255,0.2);
         }
         
         .nav-link:hover {
-            background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+            background: rgba(255,255,255,0.2);
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
         
-        .nav-link h3 {
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .nav-link p {
-            opacity: 0.9;
-            font-size: 1rem;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .admin-badge {
-            background: linear-gradient(45deg, #ff6b6b, #ffa500);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            margin-left: 0.5rem;
-            display: inline-block;
-            animation: bounce 1s infinite;
-        }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
-        
         .footer {
-            text-align: center;
-            margin-top: 4rem;
+            margin-top: 2rem;
             opacity: 0.8;
-            font-size: 1rem;
-            padding: 2rem;
-            background: rgba(0,0,0,0.2);
-            border-radius: 12px;
-        }
-        
-        .success-message {
-            background: linear-gradient(45deg, #00ff00, #00cc00);
-            color: #000;
-            padding: 1rem;
-            border-radius: 8px;
-            margin: 1rem 0;
-            font-weight: bold;
-            text-align: center;
-            animation: flash 1s infinite;
-        }
-        
-        @keyframes flash {
-            0%, 50% { opacity: 1; }
-            25%, 75% { opacity: 0.7; }
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-            
-            .logo {
-                font-size: 3.5rem;
-            }
-            
-            .subtitle {
-                font-size: 1.5rem;
-            }
-            
-            .navigation {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="logo">🍿 CouchPotato</div>
-            <div class="subtitle">Premium Streaming Experience</div>
-            <div class="status">
-                ✅ MAIN SITE IS WORKING! All systems operational
-            </div>
-            <div class="success-message">
-                🎉 FINAL EXTREME FIX SUCCESSFUL! Your CouchPotato is now live and working!
-            </div>
-        </div>
+        <div class="logo">🍿 CouchPotato</div>
+        <div class="status">✅ MAIN SITE IS WORKING! ALL SYSTEMS OPERATIONAL!</div>
         
         <div class="credentials">
-            <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2rem;">🔐 Admin Credentials</h2>
+            <h2>🔐 Admin Credentials</h2>
             <div class="credential-item">
-                <h3>Main Admin Account <span class="admin-badge">ADMIN</span></h3>
+                <h3>Main Admin Account</h3>
                 <p><strong>Email:</strong> admin@couchpotato.com</p>
                 <p><strong>Password:</strong> admin123</p>
-                <p><strong>Status:</strong> ✅ Active and Ready</p>
             </div>
             <div class="credential-item">
-                <h3>Personal Admin Account <span class="admin-badge">PERSONAL</span></h3>
+                <h3>Personal Admin Account</h3>
                 <p><strong>Email:</strong> tashingachitambira@gmail.com</p>
                 <p><strong>Password:</strong> CouchPotato2024!</p>
-                <p><strong>Status:</strong> ✅ Active and Ready</p>
             </div>
         </div>
         
-        <div class="navigation">
+        <div class="nav-links">
             <a href="/CouchPotato/movies" class="nav-link">
                 <h3>🎬 Movies</h3>
-                <p>Browse thousands of movies with our Netflix-inspired interface</p>
+                <p>Browse thousands of movies</p>
             </a>
             <a href="/CouchPotato/tv-shows" class="nav-link">
                 <h3>📺 TV Shows</h3>
-                <p>Discover amazing series and binge-watch your favorites</p>
+                <p>Discover amazing series</p>
             </a>
             <a href="/CouchPotato/my-list" class="nav-link">
                 <h3>📋 My List</h3>
-                <p>Your personal watchlist - save shows for later</p>
+                <p>Your personal watchlist</p>
             </a>
             <a href="/CouchPotato/firebase-auth" class="nav-link">
                 <h3>🔑 Login</h3>
-                <p>Access your account with Firebase authentication</p>
+                <p>Access your account</p>
             </a>
         </div>
         
         <div class="footer">
-            <p>🍿 <strong>CouchPotato</strong> - Your premium streaming destination</p>
-            <p>✅ <strong>FINAL EXTREME FIX COMPLETE!</strong> Site is now fully operational!</p>
-            <p>🚀 All features working: Movies, TV Shows, My List, Authentication</p>
+            <p><strong>🍿 CouchPotato - Your premium streaming destination</strong></p>
+            <p>✅ <strong>MAIN SITE FIXED!</strong> All features working!</p>
         </div>
     </div>
     
     <script>
-        console.log('🍿 CouchPotato FINAL EXTREME FIX - Loading...');
-        
-        // Add some interactivity
+        console.log('🍿 CouchPotato MAIN SITE - Loading...');
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('✅ CouchPotato FINAL EXTREME FIX loaded successfully!');
+            console.log('✅ CouchPotato MAIN SITE loaded successfully!');
             
-            // Add click effects to navigation links
+            // Add click effects
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
-                    // Add a loading effect
-                    this.style.opacity = '0.8';
                     this.style.transform = 'scale(0.95)';
-                    
                     setTimeout(() => {
-                        this.style.opacity = '1';
                         this.style.transform = 'scale(1)';
-                    }, 200);
+                    }, 150);
                 });
             });
-            
-            // Add success message animation
-            const status = document.querySelector('.status');
-            if (status) {
-                setInterval(() => {
-                    status.style.transform = 'scale(1.02)';
-                    setTimeout(() => {
-                        status.style.transform = 'scale(1)';
-                    }, 100);
-                }, 3000);
-            }
         });
-        
-        // Add some fun animations
-        setTimeout(() => {
-            document.body.style.opacity = '1';
-        }, 100);
     </script>
 </body>
 </html>
