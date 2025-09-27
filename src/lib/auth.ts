@@ -75,14 +75,17 @@ Or simply reply "approve" or "deny" to this message.`;
         throw new Error('User with this email already exists');
       }
 
+      const isAdmin = email.toLowerCase().trim() === 'admin@couchpotato.com';
+      
       // Create new user
       const newUser: User = {
         id: generateUUID(),
         name: name.trim(),
         email: email.toLowerCase().trim(),
-        status: 'pending',
-        role: email.toLowerCase().trim() === 'admin@couchpotato.com' ? 'admin' : 'user',
+        status: isAdmin ? 'approved' : 'pending', // Admin gets approved immediately
+        role: isAdmin ? 'admin' : 'user',
         createdAt: new Date().toISOString(),
+        ...(isAdmin && { approvedAt: new Date().toISOString() }), // Add approvedAt for admin
       };
 
       // Store user locally
@@ -213,10 +216,10 @@ Or simply reply "approve" or "deny" to this message.`;
         users.push(adminUser);
         localStorage.setItem('vidking_users', JSON.stringify(users));
         
-        // Also set admin password
+        // Also set admin password with proper encoding
         const passwordsStr = localStorage.getItem('vidking_passwords');
         const passwords = passwordsStr ? JSON.parse(passwordsStr) : {};
-        passwords['admin@couchpotato.com'] = 'admin123';
+        passwords['admin@couchpotato.com'] = btoa('admin123'); // Use base64 encoding like register function
         localStorage.setItem('vidking_passwords', JSON.stringify(passwords));
         
         console.log('✅ Admin user created successfully!');

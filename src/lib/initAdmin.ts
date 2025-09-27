@@ -50,7 +50,7 @@ export function initializeAdminUser(): void {
         passwords = JSON.parse(passwordsData);
       }
       
-      passwords['admin@couchpotato.com'] = 'admin123';
+      passwords['admin@couchpotato.com'] = btoa('admin123'); // Use base64 encoding
       localStorage.setItem('vidking_passwords', JSON.stringify(passwords));
       
       console.log('✅ Admin user initialized for GitHub Pages deployment');
