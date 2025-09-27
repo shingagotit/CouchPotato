@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CouchPotato - Debug Page</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: white;
+        }
+        .container {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+        }
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .message {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .status {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+        .link {
+            color: white;
+            text-decoration: underline;
+            margin: 0 1rem;
+            display: inline-block;
+        }
+        .error {
+            background: rgba(255, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border: 1px solid rgba(255, 0, 0, 0.5);
+        }
+        .success {
+            background: rgba(0, 255, 0, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border: 1px solid rgba(0, 255, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🍿 CouchPotato</div>
+        <div class="message">Debug Page - Deployment Status</div>
+        
+        <div id="status" class="status">Checking deployment status...</div>
+        
+        <div style="margin-top: 2rem;">
+            <a href="/CouchPotato/" class="link">Go to Main App</a>
+            <a href="/CouchPotato/movies" class="link">Go to Movies</a>
+            <a href="/CouchPotato/tv-shows" class="link">Go to TV Shows</a>
+        </div>
+        
+        <div id="results"></div>
+    </div>
+    
+    <script>
+        const statusDiv = document.getElementById('status');
+        const resultsDiv = document.getElementById('results');
+        
+        // Check if main app loads
+        function checkMainApp() {
+            fetch('/CouchPotato/')
+                .then(response => {
+                    if (response.ok) {
+                        resultsDiv.innerHTML += '<div class="success">✅ Main app is accessible</div>';
+                        return response.text();
+                    } else {
+                        resultsDiv.innerHTML += '<div class="error">❌ Main app returned: ' + response.status + '</div>';
+                        throw new Error('Main app not accessible');
+                    }
+                })
+                .then(html => {
+                    if (html.includes('CouchPotato')) {
+                        resultsDiv.innerHTML += '<div class="success">✅ Main app HTML is correct</div>';
+                    } else {
+                        resultsDiv.innerHTML += '<div class="error">❌ Main app HTML is incorrect</div>';
+                    }
+                })
+                .catch(error => {
+                    resultsDiv.innerHTML += '<div class="error">❌ Main app error: ' + error.message + '</div>';
+                });
+        }
+        
+        // Check if JavaScript loads
+        function checkJavaScript() {
+            fetch('/CouchPotato/assets/index-DGGGkWHB.js')
+                .then(response => {
+                    if (response.ok) {
+                        resultsDiv.innerHTML += '<div class="success">✅ JavaScript file is accessible</div>';
+                    } else {
+                        resultsDiv.innerHTML += '<div class="error">❌ JavaScript file returned: ' + response.status + '</div>';
+                    }
+                })
+                .catch(error => {
+                    resultsDiv.innerHTML += '<div class="error">❌ JavaScript file error: ' + error.message + '</div>';
+                });
+        }
+        
+        // Check if CSS loads
+        function checkCSS() {
+            fetch('/CouchPotato/assets/index-BtRD6-XC.css')
+                .then(response => {
+                    if (response.ok) {
+                        resultsDiv.innerHTML += '<div class="success">✅ CSS file is accessible</div>';
+                    } else {
+                        resultsDiv.innerHTML += '<div class="error">❌ CSS file returned: ' + response.status + '</div>';
+                    }
+                })
+                .catch(error => {
+                    resultsDiv.innerHTML += '<div class="error">❌ CSS file error: ' + error.message + '</div>';
+                });
+        }
+        
+        // Run all checks
+        statusDiv.textContent = 'Running diagnostic checks...';
+        checkMainApp();
+        checkJavaScript();
+        checkCSS();
+        
+        setTimeout(() => {
+            statusDiv.textContent = 'Diagnostic complete!';
+        }, 2000);
+    </script>
+</body>
+</html>
