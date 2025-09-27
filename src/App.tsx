@@ -16,6 +16,7 @@ import TelegramAdmin from "./pages/TelegramAdmin";
 import AdminDashboard from "./pages/AdminDashboard";
 import FirebaseAdminDashboard from "./pages/FirebaseAdminDashboard";
 import FirebaseAuth from "./pages/FirebaseAuth";
+import LandingPage from "./pages/LandingPage";
 import NotFound from "./pages/NotFound";
 
 // Initialize Firebase
@@ -33,9 +34,10 @@ const App = () => (
           <Sonner />
           <BrowserRouter>
             <Routes>
+              <Route path="/" element={<LandingPage />} />
               <Route path="/auth" element={<FirebaseAuth />} />
               <Route path="/firebase-auth" element={<FirebaseAuth />} />
-              <Route path="/" element={
+              <Route path="/app" element={
                 <FirebaseProtectedRoute>
                   <Index />
                 </FirebaseProtectedRoute>

@@ -13,13 +13,29 @@ const firebaseConfig = {
   appId: "1:612756968309:web:couchpotato-app"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+// Initialize Firebase with error handling
+let app;
+let auth;
+let db;
+let storage;
 
-// Initialize Firebase services
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const storage = getStorage(app);
+try {
+  app = initializeApp(firebaseConfig);
+  auth = getAuth(app);
+  db = getFirestore(app);
+  storage = getStorage(app);
+  console.log('🔥 Firebase initialized successfully');
+} catch (error) {
+  console.error('❌ Firebase initialization failed:', error);
+  // Create fallback objects to prevent app crashes
+  app = null;
+  auth = null;
+  db = null;
+  storage = null;
+}
+
+export { auth, db, storage };
+export default app;
 
 // Connect to emulators in development (optional)
 if (import.meta.env.DEV) {
@@ -28,5 +44,3 @@ if (import.meta.env.DEV) {
   // connectFirestoreEmulator(db, "localhost", 8080);
   // connectStorageEmulator(storage, "localhost", 9199);
 }
-
-export default app;
