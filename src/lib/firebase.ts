@@ -3,15 +3,14 @@ import { getAuth, connectAuthEmulator } from 'firebase/auth';
 import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
 import { getStorage, connectStorageEmulator } from 'firebase/storage';
 
-// Firebase configuration
-// You'll need to replace these with your actual Firebase config
+// Firebase configuration for CouchPotato
 const firebaseConfig = {
-  apiKey: "your-api-key-here",
-  authDomain: "your-project-id.firebaseapp.com",
-  projectId: "your-project-id",
-  storageBucket: "your-project-id.appspot.com",
-  messagingSenderId: "your-sender-id",
-  appId: "your-app-id"
+  apiKey: "AIzaSyAHvwYrZCFnvX2xyp1u4unC81VAoJeSLCY",
+  authDomain: "couchpotato-daaa3.firebaseapp.com",
+  projectId: "couchpotato-daaa3",
+  storageBucket: "couchpotato-daaa3.appspot.com",
+  messagingSenderId: "612756968309",
+  appId: "1:612756968309:web:couchpotato-app"
 };
 
 // Initialize Firebase

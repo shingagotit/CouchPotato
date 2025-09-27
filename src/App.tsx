@@ -20,6 +20,7 @@ import NotFound from "./pages/NotFound";
 
 // Initialize Firebase
 import "./lib/firebase";
+import "./lib/firebase-init";
 
 const queryClient = new QueryClient();
 
