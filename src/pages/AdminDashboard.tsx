@@ -168,7 +168,7 @@ const AdminDashboard: React.FC = () => {
             <div>
               <div className="flex items-center space-x-3">
                 <img 
-                  src="/CP.png" 
+                  src={`${import.meta.env.BASE_URL}CP.png`} 
                   alt="CouchPotato Logo" 
                   className="w-10 h-10 object-contain"
                 />

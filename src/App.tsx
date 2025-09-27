@@ -15,6 +15,9 @@ import TelegramAdmin from "./pages/TelegramAdmin";
 import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
 
+// Initialize admin user for GitHub Pages deployment
+import "./lib/initAdmin";
+
 const queryClient = new QueryClient();
 
 const App = () => (

@@ -538,12 +538,12 @@ export const tmdbService = {
   },
 
   getImageUrl(path: string, size: string = 'w500'): string {
-    if (!path) return '';
+    if (!path) return `${import.meta.env.BASE_URL || '/'}placeholder.svg`;
     return `${TMDB_IMAGE_BASE}/${size}${path}`;
   },
 
   getBackdropUrl(path: string, size: string = 'w1280'): string {
-    if (!path) return '';
+    if (!path) return `${import.meta.env.BASE_URL || '/'}placeholder.svg`;
     return `${TMDB_IMAGE_BASE}/${size}${path}`;
   }
 };

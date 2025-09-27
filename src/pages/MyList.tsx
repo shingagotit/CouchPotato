@@ -100,7 +100,7 @@ const MyList: React.FC = () => {
   };
 
   const getImageUrl = (posterPath: string | null) => {
-    if (!posterPath) return '/placeholder.svg';
+    if (!posterPath) return `${import.meta.env.BASE_URL}placeholder.svg`;
     return tmdbService.getImageUrl(posterPath);
   };
 

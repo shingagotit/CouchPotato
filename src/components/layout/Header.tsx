@@ -38,9 +38,20 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
         <div className="flex items-center space-x-8">
           <div className="flex items-center space-x-3">
             <img 
-              src="/CP.png" 
+              src={`${import.meta.env.BASE_URL}CP.png`} 
               alt="CouchPotato Logo" 
               className="w-8 h-8 object-contain"
+              onError={(e) => {
+                // Fallback to a simple icon if image fails to load
+                (e.target as HTMLImageElement).style.display = 'none';
+                const parent = (e.target as HTMLImageElement).parentElement;
+                if (parent && !parent.querySelector('.fallback-icon')) {
+                  const fallback = document.createElement('div');
+                  fallback.className = 'fallback-icon w-8 h-8 bg-gradient-to-r from-red-600 to-red-500 rounded flex items-center justify-center text-white text-sm font-bold';
+                  fallback.textContent = 'CP';
+                  parent.insertBefore(fallback, parent.firstChild);
+                }
+              }}
             />
             <h1 className="text-2xl lg:text-3xl font-bold text-primary tracking-tight">
               CouchPotato

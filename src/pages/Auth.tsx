@@ -31,9 +31,17 @@ const Auth: React.FC = () => {
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-20 h-20 mb-4">
               <img 
-                src="/CP.png" 
+                src={`${import.meta.env.BASE_URL}CP.png`} 
                 alt="CouchPotato Logo" 
                 className="w-full h-full object-contain"
+                onError={(e) => {
+                  // Fallback to a simple icon if image fails to load
+                  (e.target as HTMLImageElement).style.display = 'none';
+                  const parent = (e.target as HTMLImageElement).parentElement;
+                  if (parent && !parent.querySelector('.fallback-icon')) {
+                    parent.innerHTML = '<div class="fallback-icon w-20 h-20 bg-gradient-to-r from-red-600 to-red-500 rounded-lg flex items-center justify-center text-white text-3xl font-bold">CP</div>';
+                  }
+                }}
               />
             </div>
             <h1 className="text-3xl font-bold text-primary mb-2">CouchPotato</h1>

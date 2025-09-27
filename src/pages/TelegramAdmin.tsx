@@ -97,7 +97,7 @@ const TelegramAdmin: React.FC = () => {
         <div className="text-center space-y-2">
           <div className="inline-flex items-center justify-center w-16 h-16 mb-4">
             <img 
-              src="/CP.png" 
+              src={`${import.meta.env.BASE_URL}CP.png`} 
               alt="CouchPotato Logo" 
               className="w-full h-full object-contain"
             />
