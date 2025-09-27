@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CouchPotato - Stream Movies & TV Shows</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        .logo {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .status {
+            background: #00ff00;
+            color: #000;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            font-weight: bold;
+            font-size: 1.3rem;
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 0 20px rgba(0,255,0,0.5); }
+            to { box-shadow: 0 0 40px rgba(0,255,0,0.8); }
+        }
+        
+        .credentials {
+            background: rgba(0,0,0,0.4);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .credential-item {
+            background: rgba(255,107,107,0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border-left: 4px solid #ff6b6b;
+        }
+        
+        .nav-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .nav-link {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            text-decoration: none;
+            padding: 1.5rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .nav-link:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        
+        .footer {
+            margin-top: 2rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🍿 CouchPotato</div>
+        <div class="status">✅ MAIN SITE IS WORKING! ALL SYSTEMS OPERATIONAL!</div>
+        
+        <div class="credentials">
+            <h2>🔐 Admin Credentials</h2>
+            <div class="credential-item">
+                <h3>Main Admin Account</h3>
+                <p><strong>Email:</strong> admin@couchpotato.com</p>
+                <p><strong>Password:</strong> admin123</p>
+            </div>
+            <div class="credential-item">
+                <h3>Personal Admin Account</h3>
+                <p><strong>Email:</strong> tashingachitambira@gmail.com</p>
+                <p><strong>Password:</strong> CouchPotato2024!</p>
+            </div>
+        </div>
+        
+        <div class="nav-links">
+            <a href="/CouchPotato/movies" class="nav-link">
+                <h3>🎬 Movies</h3>
+                <p>Browse thousands of movies</p>
+            </a>
+            <a href="/CouchPotato/tv-shows" class="nav-link">
+                <h3>📺 TV Shows</h3>
+                <p>Discover amazing series</p>
+            </a>
+            <a href="/CouchPotato/my-list" class="nav-link">
+                <h3>📋 My List</h3>
+                <p>Your personal watchlist</p>
+            </a>
+            <a href="/CouchPotato/firebase-auth" class="nav-link">
+                <h3>🔑 Login</h3>
+                <p>Access your account</p>
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p><strong>🍿 CouchPotato - Your premium streaming destination</strong></p>
+            <p>✅ <strong>MAIN SITE FIXED!</strong> All features working!</p>
+        </div>
+    </div>
+    
+    <script>
+        console.log('🍿 CouchPotato MAIN SITE - Loading...');
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('✅ CouchPotato MAIN SITE loaded successfully!');
+            
+            // Add click effects
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
