@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CouchPotato - Test Page</title>
+    <title>CouchPotato - Simple Test</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -34,13 +34,22 @@
             font-size: 0.9rem;
             opacity: 0.8;
         }
+        .link {
+            color: white;
+            text-decoration: underline;
+            margin: 0 1rem;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="logo">🍿 CouchPotato</div>
-        <div class="message">Test Page - Deployment Working!</div>
+        <div class="message">Simple Test Page - Deployment Working!</div>
         <div class="status">If you can see this, the deployment is working correctly.</div>
+        <div style="margin-top: 2rem;">
+            <a href="/CouchPotato/" class="link">Go to Main App</a>
+            <a href="/CouchPotato/firebase-auth" class="link">Go to Auth</a>
+        </div>
     </div>
 </body>
 </html>
