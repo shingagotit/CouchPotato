@@ -11,6 +11,7 @@ import AllMovies from "./pages/AllMovies";
 import AllTvShows from "./pages/AllTvShows";
 import Search from "./pages/Search";
 import MyList from "./pages/MyList";
+import UserSettings from "./pages/UserSettings";
 import TelegramAdmin from "./pages/TelegramAdmin";
 import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
@@ -32,10 +33,11 @@ const App = () => (
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/movies" element={<AllMovies />} />
-                <Route path="/tv-shows" element={<AllTvShows />} />
-                <Route path="/search" element={<Search />} />
-                <Route path="/my-list" element={<MyList />} />
-                <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                        <Route path="/tv-shows" element={<AllTvShows />} />
+                        <Route path="/search" element={<Search />} />
+                        <Route path="/my-list" element={<MyList />} />
+                        <Route path="/settings" element={<UserSettings />} />
+                        <Route path="/admin/dashboard" element={<AdminDashboard />} />
                 <Route path="/admin/telegram" element={<TelegramAdmin />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />

@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import LoginForm from '@/components/auth/LoginForm';
-import RegisterForm from '@/components/auth/RegisterForm';
+import EnhancedLoginForm from '@/components/auth/EnhancedLoginForm';
+import EnhancedRegisterForm from '@/components/auth/EnhancedRegisterForm';
+import PasswordResetForm from '@/components/auth/PasswordResetForm';
 import RegistrationSuccess from '@/components/auth/RegistrationSuccess';
 
-type AuthView = 'login' | 'register' | 'success';
+type AuthView = 'login' | 'register' | 'password-reset' | 'success';
 
 const Auth: React.FC = () => {
   const [currentView, setCurrentView] = useState<AuthView>('login');
 
   const handleSwitchToRegister = () => setCurrentView('register');
   const handleSwitchToLogin = () => setCurrentView('login');
+  const handleSwitchToPasswordReset = () => setCurrentView('password-reset');
   const handleRegistrationSuccess = () => setCurrentView('success');
 
   return (
@@ -50,14 +52,21 @@ const Auth: React.FC = () => {
 
           {/* Auth Forms */}
           {currentView === 'login' && (
-            <LoginForm onSwitchToRegister={handleSwitchToRegister} />
+            <EnhancedLoginForm 
+              onSwitchToRegister={handleSwitchToRegister}
+              onSwitchToPasswordReset={handleSwitchToPasswordReset}
+            />
           )}
           
           {currentView === 'register' && (
-            <RegisterForm 
+            <EnhancedRegisterForm 
               onSwitchToLogin={handleSwitchToLogin}
               onRegistrationSuccess={handleRegistrationSuccess}
             />
+          )}
+
+          {currentView === 'password-reset' && (
+            <PasswordResetForm onBackToLogin={handleSwitchToLogin} />
           )}
           
           {currentView === 'success' && (

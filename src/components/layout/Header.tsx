@@ -165,9 +165,9 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/settings')}>
                 <User className="mr-2 h-4 w-4" />
-                <span>Profile</span>
+                <span>Account Settings</span>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Bell className="mr-2 h-4 w-4" />
