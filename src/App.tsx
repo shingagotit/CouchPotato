@@ -42,6 +42,14 @@ const App = () => (
                   <Index />
                 </FirebaseProtectedRoute>
               } />
+              <Route path="/CouchPotato/" element={<LandingPage />} />
+              <Route path="/CouchPotato/auth" element={<FirebaseAuth />} />
+              <Route path="/CouchPotato/firebase-auth" element={<FirebaseAuth />} />
+              <Route path="/CouchPotato/app" element={
+                <FirebaseProtectedRoute>
+                  <Index />
+                </FirebaseProtectedRoute>
+              } />
               <Route path="/movies" element={
                 <FirebaseProtectedRoute>
                   <AllMovies />
@@ -70,6 +78,36 @@ const App = () => (
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="/firebase-admin" element={<FirebaseAdminDashboard />} />
               <Route path="/admin/telegram" element={<TelegramAdmin />} />
+              
+              {/* GitHub Pages routes with CouchPotato prefix */}
+              <Route path="/CouchPotato/movies" element={
+                <FirebaseProtectedRoute>
+                  <AllMovies />
+                </FirebaseProtectedRoute>
+              } />
+              <Route path="/CouchPotato/tv-shows" element={
+                <FirebaseProtectedRoute>
+                  <AllTvShows />
+                </FirebaseProtectedRoute>
+              } />
+              <Route path="/CouchPotato/search" element={
+                <FirebaseProtectedRoute>
+                  <Search />
+                </FirebaseProtectedRoute>
+              } />
+              <Route path="/CouchPotato/my-list" element={
+                <FirebaseProtectedRoute>
+                  <MyList />
+                </FirebaseProtectedRoute>
+              } />
+              <Route path="/CouchPotato/settings" element={
+                <FirebaseProtectedRoute>
+                  <UserSettings />
+                </FirebaseProtectedRoute>
+              } />
+              <Route path="/CouchPotato/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="/CouchPotato/firebase-admin" element={<FirebaseAdminDashboard />} />
+              <Route path="/CouchPotato/admin/telegram" element={<TelegramAdmin />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
