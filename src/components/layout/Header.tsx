@@ -97,7 +97,7 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
               My List
             </button>
             {/* Admin Portal Button - Visible on all screens for admins */}
-            {(user?.role === 'admin' || user?.email === 'admin@couchpotato.com') && (
+            {(user?.role === 'admin' || user?.email === 'admin@couchpotato.com' || user?.email === 'tashingachitambira@gmail.com') && (
               <button
                 onClick={handleAdminPortal}
                 className="flex items-center space-x-1 bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded-lg transition-smooth text-sm font-medium"
@@ -112,7 +112,7 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
         {/* Right side */}
         <div className="flex items-center space-x-4">
           {/* Mobile Admin Button - Visible on small screens */}
-          {(user?.role === 'admin' || user?.email === 'admin@couchpotato.com') && (
+          {(user?.role === 'admin' || user?.email === 'admin@couchpotato.com' || user?.email === 'tashingachitambira@gmail.com') && (
             <button
               onClick={handleAdminPortal}
               className="md:hidden flex items-center space-x-1 bg-purple-600 hover:bg-purple-700 text-white px-2 py-1 rounded-lg transition-smooth text-xs font-medium"
@@ -173,7 +173,7 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                 <Bell className="mr-2 h-4 w-4" />
                 <span>Notifications</span>
               </DropdownMenuItem>
-              {(user?.role === 'admin' || user?.email === 'admin@couchpotato.com') && (
+              {(user?.role === 'admin' || user?.email === 'admin@couchpotato.com' || user?.email === 'tashingachitambira@gmail.com') && (
                 <>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleAdminPortal} className="text-purple-600">

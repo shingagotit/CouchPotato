@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Eye, EyeOff, LogIn, UserPlus, KeyRound } from 'lucide-react';
+import { Eye, EyeOff, LogIn, UserPlus, KeyRound, User } from 'lucide-react';
 import { enhancedAuthService } from '@/lib/enhanced-auth';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -46,13 +46,15 @@ const EnhancedLoginForm: React.FC<EnhancedLoginFormProps> = ({
     }
   };
 
-  const handleQuickLogin = async (userType: 'admin' | 'demo') => {
+  const handleQuickLogin = async (userType: 'admin' | 'personal' | 'demo') => {
     setIsLoading(true);
     setError('');
 
     try {
       const credentials = userType === 'admin' 
         ? { email: 'admin@couchpotato.com', password: 'admin123' }
+        : userType === 'personal'
+        ? { email: 'tashingachitambira@gmail.com', password: 'CouchPotato2024!' }
         : { email: 'demo@couchpotato.com', password: 'demo123' };
 
       // Create demo user if it doesn't exist
@@ -160,25 +162,35 @@ const EnhancedLoginForm: React.FC<EnhancedLoginFormProps> = ({
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-3 gap-2">
           <Button
             type="button"
             variant="outline"
             onClick={() => handleQuickLogin('admin')}
             disabled={isLoading}
-            className="flex items-center gap-2"
+            className="flex items-center gap-1 text-xs"
           >
-            <KeyRound className="h-4 w-4" />
+            <KeyRound className="h-3 w-3" />
             Admin
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => handleQuickLogin('personal')}
+            disabled={isLoading}
+            className="flex items-center gap-1 text-xs bg-purple-50 hover:bg-purple-100 border-purple-200"
+          >
+            <User className="h-3 w-3" />
+            Personal
           </Button>
           <Button
             type="button"
             variant="outline"
             onClick={() => handleQuickLogin('demo')}
             disabled={isLoading}
-            className="flex items-center gap-2"
+            className="flex items-center gap-1 text-xs"
           >
-            <UserPlus className="h-4 w-4" />
+            <UserPlus className="h-3 w-3" />
             Demo
           </Button>
         </div>
@@ -218,9 +230,10 @@ const EnhancedLoginForm: React.FC<EnhancedLoginFormProps> = ({
 
       {/* Demo Credentials Info */}
       <div className="mt-6 p-4 bg-muted/50 rounded-lg">
-        <h4 className="text-sm font-medium mb-2">Demo Credentials:</h4>
+        <h4 className="text-sm font-medium mb-2">Available Accounts:</h4>
         <div className="text-xs text-muted-foreground space-y-1">
           <div><strong>Admin:</strong> admin@couchpotato.com / admin123</div>
+          <div><strong>Personal:</strong> tashingachitambira@gmail.com / CouchPotato2024!</div>
           <div><strong>Demo:</strong> demo@couchpotato.com / demo123</div>
         </div>
       </div>

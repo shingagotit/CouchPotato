@@ -48,7 +48,7 @@ const AdminDashboard: React.FC = () => {
 
   // Redirect if not admin
   useEffect(() => {
-    if (user && user.role !== 'admin' && user.email !== 'admin@couchpotato.com') {
+    if (user && user.role !== 'admin' && user.email !== 'admin@couchpotato.com' && user.email !== 'tashingachitambira@gmail.com') {
       navigate('/');
     }
   }, [user, navigate]);
@@ -147,7 +147,7 @@ const AdminDashboard: React.FC = () => {
       : <Badge variant="outline"><Shield className="w-3 h-3 mr-1" />User</Badge>;
   };
 
-  if (user?.role !== 'admin' && user?.email !== 'admin@couchpotato.com') {
+  if (user?.role !== 'admin' && user?.email !== 'admin@couchpotato.com' && user?.email !== 'tashingachitambira@gmail.com') {
     return null; // Will redirect via useEffect
   }
 

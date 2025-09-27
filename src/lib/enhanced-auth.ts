@@ -66,16 +66,18 @@ function generateUUID(): string {
 }
 
 export const enhancedAuthService = {
-  // Initialize the system with default admin
+  // Initialize the system with default admin accounts
   async initialize(): Promise<void> {
     try {
       const users = this.getStoredUsers();
-      const adminExists = users.some(user => user.email === 'admin@couchpotato.com');
+      const passwords = this.getStoredPasswords();
       
-      if (!adminExists) {
-        console.log('🔧 Initializing enhanced auth system...');
+      // Create main admin account
+      const mainAdminExists = users.some(user => user.email === 'admin@couchpotato.com');
+      if (!mainAdminExists) {
+        console.log('🔧 Creating main admin account...');
         
-        const adminUser: EnhancedUser = {
+        const mainAdminUser: EnhancedUser = {
           id: generateUUID(),
           name: 'Administrator',
           email: 'admin@couchpotato.com',
@@ -89,18 +91,42 @@ export const enhancedAuthService = {
           securityAnswer: hashPassword('couchpotato'),
         };
         
-        users.push(adminUser);
-        localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
-        
-        // Set admin password with proper hashing
-        const passwords = this.getStoredPasswords();
+        users.push(mainAdminUser);
         passwords['admin@couchpotato.com'] = hashPassword('admin123');
-        localStorage.setItem(PASSWORDS_STORAGE_KEY, JSON.stringify(passwords));
         
-        console.log('✅ Enhanced auth system initialized!');
-        console.log('📧 Admin: admin@couchpotato.com');
-        console.log('🔑 Password: admin123');
+        console.log('✅ Main admin created: admin@couchpotato.com / admin123');
       }
+
+      // Create personal admin account with your email
+      const personalAdminExists = users.some(user => user.email === 'tashingachitambira@gmail.com');
+      if (!personalAdminExists) {
+        console.log('🔧 Creating personal admin account...');
+        
+        const personalAdminUser: EnhancedUser = {
+          id: generateUUID(),
+          name: 'Tashinga Chitambira',
+          email: 'tashingachitambira@gmail.com',
+          status: 'approved',
+          role: 'admin',
+          createdAt: new Date().toISOString(),
+          approvedAt: new Date().toISOString(),
+          lastLogin: new Date().toISOString(),
+          loginAttempts: 0,
+          securityQuestion: 'What is your favorite streaming platform?',
+          securityAnswer: hashPassword('couchpotato'),
+        };
+        
+        users.push(personalAdminUser);
+        passwords['tashingachitambira@gmail.com'] = hashPassword('CouchPotato2024!');
+        
+        console.log('✅ Personal admin created: tashingachitambira@gmail.com / CouchPotato2024!');
+      }
+
+      // Save all users and passwords
+      localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
+      localStorage.setItem(PASSWORDS_STORAGE_KEY, JSON.stringify(passwords));
+      
+      console.log('✅ Enhanced auth system initialized with both admin accounts!');
     } catch (error) {
       console.error('Failed to initialize enhanced auth:', error);
     }
@@ -217,7 +243,8 @@ export const enhancedAuthService = {
         throw new Error('User with this email already exists');
       }
       
-      const isAdmin = email.toLowerCase().trim() === 'admin@couchpotato.com';
+      const isAdmin = email.toLowerCase().trim() === 'admin@couchpotato.com' || 
+                      email.toLowerCase().trim() === 'tashingachitambira@gmail.com';
       
       const newUser: EnhancedUser = {
         id: generateUUID(),
